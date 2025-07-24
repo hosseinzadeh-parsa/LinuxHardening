@@ -1,0 +1,23 @@
+- name: install iptables-persistent
+  ansible.builtin.apt:
+    name: iptables-persistent
+    state: present
+  tags: iptables
+
+- name: Configure iptables
+  ansible.builtin.template:
+    src: etc/iptables/rules.v4.j2
+    dest: /etc/iptables/rules.v4
+    owner: root
+    group: root
+    mode: "0640"
+  notify:
+    - Restart iptables
+  tags: iptables
+
+- name: Changing root password
+  user:
+    name: root
+    password: "{{ os_new_root_password }}"
+    update_password: always
+  tags: iptables
