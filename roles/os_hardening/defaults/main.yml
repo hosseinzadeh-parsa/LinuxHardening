@@ -331,6 +331,8 @@ os_unused_filesystems:
   - squashfs
   - udf
   - vfat
+  - ...
+  - usb-storage
   # Obsolete network protocols that should be disabled
   # per CIS Oracle Linux 6 Benchmark (2016)
   - dccp # CIS 3.5.1
