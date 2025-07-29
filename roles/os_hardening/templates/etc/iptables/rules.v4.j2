@@ -1,0 +1,30 @@
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A INPUT -i lo -j ACCEPT
+{% if iptables.nic_access is defined %}
+{% for nic in iptables.nic_access %}
+-A INPUT -i {{ nic }} -j ACCEPT
+{% endfor %}
+{% endif %}
+-A INPUT -p tcp -m tcp --dport {{ ansible_port }} -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+{% if iptables.tcp_port is defined %}
+{% for port in iptables.tcp_port %}
+-A INPUT -p tcp -m tcp --dport {{ port }} -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+{% endfor %}
+{% endif %}
+{% if iptables.udp_port is defined %}
+{% for uport in iptables.udp_port %}
+-A INPUT -p udp -m udp --dport {{ uport }} -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+{% endfor %}
+{% endif %}
+{% if iptables.ip_access is defined %}
+{% for ips in iptables.ip_access %}
+-A INPUT -s {{ ips }} -j ACCEPT
+{% endfor %}
+{% endif %}
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -j DROP
+-A OUTPUT -j ACCEPT
+COMMIT
