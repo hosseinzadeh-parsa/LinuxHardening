@@ -470,7 +470,7 @@ os_mnt_run_dump: ""
 os_mnt_run_passno: ""
 
 os_mnt_tmp_dir_mode: "1777"
-os_mnt_tmp_enabled: true
+os_mnt_tmp_enabled: false
 os_mnt_tmp_src: ""
 os_mnt_tmp_options: rw,nosuid,nodev,noexec
 os_mnt_tmp_filesystem: ""
