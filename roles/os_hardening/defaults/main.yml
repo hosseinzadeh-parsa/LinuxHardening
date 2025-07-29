@@ -4,7 +4,7 @@ os_new_root_password: qaz123QAZ!@#
 os_env_user_paths: [/usr/local/sbin, /usr/local/bin, /usr/sbin, /usr/bin, /sbin, /bin]
 os_env_extra_user_paths: []
 os_auth_pw_max_age: 60
-os_auth_pw_min_age: 7 # Discourage password cycling
+os_auth_pw_min_age: 1 # Discourage password cycling
 os_auth_pw_warn_age: 7
 os_auth_pw_remember: 5 # Specify how many used passwords are record
 os_auth_retries: 5
@@ -13,13 +13,13 @@ os_auth_timeout: 60
 os_auth_allow_homeless: false
 os_auth_pam_oddjob_mkhomedir: false
 os_auth_pam_passwdqc_enable: true
-os_auth_pam_passwdqc_options: min=disabled,disabled,16,12,8 # Used in Debian
+os_auth_pam_passwdqc_options: min=disabled,disabled,12,10,8 # Used in Debian
 os_auth_pam_pwquality_options: try_first_pass retry=3 authtok_type= # Used in RHEL7 and RHEL8
 os_auth_root_ttys: [console, tty1, tty2, tty3, tty4, tty5, tty6]
 os_chfn_restrict: ""
 
 # Set to `false` to disable "chmod 700" of home folders for regular users
-os_chmod_rootuser_home_folder: true
+os_chmod_rootuser_home_folder: false
 os_chmod_home_folders: true
 # Specify user accounts, whose home folders shouldn't be chmodded to 700 when "os_chmod_home_folders" is enabled.
 os_ignore_home_folder_users: []
@@ -28,7 +28,7 @@ os_ignore_home_folder_users: []
 os_security_users_allow: []
 
 # Set to false to disable password age enforcement on existing users
-os_rootuser_pw_ageing: false
+os_rootuser_pw_ageing: true
 
 # When enabled and there are multiple users with UID=0, only "root" will be kept. Others will be deleted.
 os_remove_additional_root_users: false
@@ -186,8 +186,8 @@ sysctl_config:
   # Setting the flag to 0 ensures that a system with multiple interfaces (for example, a hard
   # proxy), will never be able to forward packets, and therefore, never serve as a router.
   # | sysctl-01 | sysctl-19
-  net.ipv4.ip_forward: 1
-  net.ipv6.conf.all.forwarding: 1
+  net.ipv4.ip_forward: 0
+  net.ipv6.conf.all.forwarding: 0
 
   # Enable RFC-recommended source validation feature.
   # If the return packet does not go out the same interface that the corresponding
@@ -377,7 +377,7 @@ proc_mnt_options: rw,nosuid,nodev,noexec,relatime
 os_cron_enabled: true
 
 # Set to true to disable ctrl-alt-del key combination.
-os_ctrlaltdel_disabled: false
+os_ctrlaltdel_disabled: true
 
 # Set to false to disable installing and configuring limits.
 os_limits_enabled: true
@@ -453,7 +453,7 @@ os_mnt_dev_shm_filesystem: tmpfs
 os_mnt_dev_shm_dump: ""
 os_mnt_dev_shm_passno: ""
 
-os_mnt_home_dir_mode: "0755"
+os_mnt_home_dir_mode: "0700"
 os_mnt_home_enabled: true
 os_mnt_home_src: ""
 os_mnt_home_options: rw,nosuid,nodev
