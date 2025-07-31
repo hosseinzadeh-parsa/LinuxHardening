@@ -111,3 +111,4 @@
     - os_chmod_home_folders | bool
     - regular_users is defined and (regular_users | length > 0)
     - item not in os_ignore_home_folder_users | default([])
+    
