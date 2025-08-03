@@ -72,24 +72,47 @@ LinuxHardening/
 
 ## 🚀 Quick Start
 
-### 1. Clone the repository
+### 1. Install Ansible on the Control Node
+
+Make sure Ansible (v2.16+) is installed **only on your control node** (e.g., your local machine).  
+You do **not** need to install Ansible on the target Debian systems.
+
+```bash
+sudo apt install -y software-properties-common
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+sh -c 'apt-get update; apt-get upgrade -y; apt-get dist-upgrade -y; apt-get autoremove -y; apt-get autoclean -y'
+sudo apt install -y ansible
+ansible --version
+```
+
+### 2. Clone the repository
 
 ```bash
 git clone https://github.com/hosseinzadeh-parsa/LinuxHardening.git
 cd LinuxHardening
 ```
 
-### 2. Edit inventory
+### 3. Customize Inventory & Variables
 
-Customize `inventory/hosts.yml`, `group_vars/` or `host_vars/` for your target nodes.
+Edit `inventory/hosts.yml`, and optionally `group_vars/` or `host_vars/` as needed for your environment.
 
-### 3. Execute playbook
+### 4. Test SSH Connectivity (Optional)
+
+Before running the playbook, verify connectivity to the target hosts:
+
+```bash
+ansible all -i inventory/hosts.yml -m ping
+```
+
+If the response is `"pong"`, then SSH key-based access is working properly.
+
+### 5. Run the Playbook
 
 ```bash
 ansible-playbook playbooks/hardening.yml -i inventory/hosts.yml
 ```
 
-ℹ️ Make sure you have passwordless SSH access.
+> ⚠️ **Note:** All target systems must be accessible via **SSH key-based authentication** on **port 8090**, and the connecting user must have **sudo privileges**.
 
 ---
 
