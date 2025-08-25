@@ -47,11 +47,11 @@ For more information, see [this issue](https://github.com/dev-sec/ansible-collec
 
 ## Supported Operating Systems
 - EL
-  - 8, 9
+  - 8, 9, 10
 - Ubuntu
   - focal, jammy, noble
 - Debian
-  - bookworm, bullseye
+  - trixie, bookworm, bullseye
 - Alpine
 - Amazon
 - Fedora
